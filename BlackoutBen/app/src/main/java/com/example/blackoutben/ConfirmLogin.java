@@ -1,6 +1,8 @@
 package com.example.blackoutben;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +16,22 @@ public class ConfirmLogin extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_login);
-        Intent intent = getIntent();
+
+        SharedPreferences sharedPref = getSharedPreferences("user.xml", 0);
+        String userName = sharedPref.getString(Constants.USER_NAME,"DEFAULT");
+        String phoneNumber = sharedPref.getString(Constants.PHONE_NUMBER,"DEFAULT");
+        String groupID = sharedPref.getString(Constants.GROUP_ID,"DEFAULT");
+
+
+        TextView tv_userName = (TextView)findViewById(R.id.userName);
+        tv_userName.setText(userName);
+        TextView tv_groupID = (TextView)findViewById(R.id.groupID);
+        tv_groupID.setText(groupID);
+
+        TextView tv_phoneNumber = (TextView)findViewById(R.id.phoneNumber);
+        tv_phoneNumber.setText(phoneNumber);
+
+
 
     }
 

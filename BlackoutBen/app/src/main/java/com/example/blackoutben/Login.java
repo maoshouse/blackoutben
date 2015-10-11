@@ -1,6 +1,8 @@
 package com.example.blackoutben;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,15 +12,29 @@ import android.widget.EditText;
 
 
 public class Login extends ActionBarActivity {
-    public final static String GLOBAL_USERNAME = "newname";
-    public final static String GLOBAL_PHONENUMBER = "newname";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_login);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sharedPref = getSharedPreferences("user.xml", 0);
+        String userName = sharedPref.getString(Constants.USER_NAME, "");
+        String phoneNumber = sharedPref.getString(Constants.PHONE_NUMBER,"");
+        String groupID = sharedPref.getString(Constants.GROUP_ID, "");
+
+        EditText user =   ((EditText)findViewById(R.id.username));
+        ((EditText)findViewById(R.id.phonenumber)).setText(phoneNumber);
+        ((EditText)findViewById(R.id.groupname)).setText(groupID);
+
+        user.setText(userName);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,12 +63,23 @@ public class Login extends ActionBarActivity {
      */
     public void enterGroup(View view) {
         Intent intent = new Intent(this, ConfirmLogin.class);
-        EditText editTextUsername = (EditText) findViewById(R.id.username);
-        EditText editTextPhoneNumber = (EditText) findViewById(R.id.phonenumber);
-        String user = editTextUsername.getText().toString();
-        String phonenum = editTextPhoneNumber.getText().toString();
+        String userName = ((EditText)findViewById(R.id.username)).getText().toString();
+        String phoneNumber = ((EditText)findViewById(R.id.phonenumber)).getText().toString();
+        String groupID = ((EditText)findViewById(R.id.groupname)).getText().toString();
 
-        // Save data here
+        Bundle userData = new Bundle();
+        userData.putString(Constants.USER_NAME, userName);
+        userData.putString(Constants.PHONE_NUMBER, phoneNumber);
+        userData.putString(Constants.GROUP_ID, groupID);
+
+        intent.putExtras(userData);
+
+        SharedPreferences sharedPref = getSharedPreferences("user.xml", 0);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(Constants.USER_NAME, userName);
+        editor.putString(Constants.PHONE_NUMBER, phoneNumber);
+        editor.putString(Constants.GROUP_ID, groupID);
+        editor.commit();
 
         startActivity(intent);
     }
