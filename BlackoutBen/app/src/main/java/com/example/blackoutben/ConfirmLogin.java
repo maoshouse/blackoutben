@@ -35,11 +35,11 @@ public class ConfirmLogin extends AppCompatActivity implements ConnectionCallbac
     protected Button mStopButton;
 
     protected Boolean mRequestingLocationUpdates;
-
+    private static final String TAG = "MyActivity";
 
     protected void createLocationRequest() {
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(5000);
+        mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
     }
@@ -50,7 +50,6 @@ public class ConfirmLogin extends AppCompatActivity implements ConnectionCallbac
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-
         createLocationRequest();
     }
     protected void stopLocationUpdates() {
@@ -142,17 +141,36 @@ public class ConfirmLogin extends AppCompatActivity implements ConnectionCallbac
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+
+        super.onStop();
+    }
+
     /**
      * Google api callback methods
      */
     @Override
     public void onConnectionFailed(ConnectionResult result) {
-
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
     }
 
 
     @Override
     public void onConnectionSuspended(int arg0) {
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         mGoogleApiClient.connect();
     }
 
