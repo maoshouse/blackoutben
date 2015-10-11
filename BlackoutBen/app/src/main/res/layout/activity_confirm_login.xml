@@ -35,4 +35,24 @@
         android:layout_below="@+id/groupID"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Location"
+        android:id="@+id/button_startLoc"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="StartButtonHandler" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop Location"
+        android:id="@+id/button_stopLoc"
+        android:layout_below="@+id/button_startLoc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="stopButtonHandler" />
 </RelativeLayout>
