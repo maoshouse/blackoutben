@@ -4,4 +4,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_confirm_login">ConfirmLogin</string>
+    <string name="title_activity_map_location">MapLocationActivity</string>
+
+    <string name="lbl_you_are_at">YOU ARE LOCATED AT</string>
+    <string name="btn_get_location">RETRIEVE MY LOCATION</string>
+    <string name="btn_start_location_updates">START LOCATION UPDATES !!</string>
+    <string name="btn_stop_location_updates">STOP LOCATION UPDATES !!</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

@@ -22,6 +22,11 @@
             android:name=".ConfirmLogin"
             android:label="@string/title_activity_confirm_login" >
         </activity>
+        <activity
+            android:name=".MapLocationActivity"
+            android:label="@string/title_activity_map_location"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
