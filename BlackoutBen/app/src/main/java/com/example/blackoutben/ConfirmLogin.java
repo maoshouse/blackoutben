@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.maoshouse.myapplication.backend.locApi.model.Loc;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
@@ -72,6 +73,28 @@ public class ConfirmLogin extends AppCompatActivity implements ConnectionCallbac
             tv_userName.setText(String.valueOf(mCurrentLocation.getLatitude())+ " , "+ String.valueOf(mCurrentLocation.getLongitude()));
             //mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
         }
+    }
+
+    static final int REQUEST_CODE_RECOVER_PLAY_SERVICES = 1001;
+
+    private boolean checkGooglePlayServices(){
+        int checkGooglePlayServices = GooglePlayServicesUtil
+                .isGooglePlayServicesAvailable(this);
+        if (checkGooglePlayServices != ConnectionResult.SUCCESS) {
+		/*
+		* Google Play Services is missing or update is required
+		*  return code could be
+		* SUCCESS,
+		* SERVICE_MISSING, SERVICE_VERSION_UPDATE_REQUIRED,
+		* SERVICE_DISABLED, SERVICE_INVALID.
+		*/
+            GooglePlayServicesUtil.getErrorDialog(checkGooglePlayServices,
+                    this, REQUEST_CODE_RECOVER_PLAY_SERVICES).show();
+
+            return false;
+        }
+
+        return true;
     }
 
     private void setButtonsEnabledState() {
@@ -144,6 +167,7 @@ public class ConfirmLogin extends AppCompatActivity implements ConnectionCallbac
     @Override
     protected void onStart() {
         super.onStart();
+        checkGooglePlayServices();
         mGoogleApiClient.connect();
     }
 
