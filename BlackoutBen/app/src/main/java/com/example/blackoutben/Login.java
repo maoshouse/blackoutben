@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.maoshouse.myapplication.backend.locApi.model.Loc;
 
 
 public class Login extends ActionBarActivity {
@@ -81,6 +84,13 @@ public class Login extends ActionBarActivity {
         editor.putString(Constants.GROUP_ID, groupID);
         editor.commit();
 
+        Loc userLoc = new Loc();
+        userLoc.setGroup(groupID);
+        userLoc.setUser(userName);
+        userLoc.setLatitude(-118.285);
+        userLoc.setLongitude(34.020);
+
+        new SetUserAsyncTask().execute(new Pair<Context, Loc>(this, userLoc));
         startActivity(intent);
     }
 }
