@@ -1,5 +1,7 @@
 package com.example.blackoutben;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import com.example.maoshouse.myapplication.backend.locApi.model.Loc;
 
@@ -65,7 +68,10 @@ public class Login extends ActionBarActivity {
      * Called when user clicks the Join Group button
      */
     public void enterGroup(View view) {
-        Intent intent = new Intent(this, ConfirmLogin.class);
+        //Intent intent = new Intent(this, ConfirmLogin.class);
+        //Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent=new Intent(this.getApplicationContext(),
+                MapsActivity.class);
         String userName = ((EditText)findViewById(R.id.username)).getText().toString();
         String phoneNumber = ((EditText)findViewById(R.id.phonenumber)).getText().toString();
         String groupID = ((EditText)findViewById(R.id.groupname)).getText().toString();
